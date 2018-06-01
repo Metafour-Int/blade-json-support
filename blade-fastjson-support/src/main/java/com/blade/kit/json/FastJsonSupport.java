@@ -1,10 +1,9 @@
 package com.blade.kit.json;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
-import java.util.List;
+import java.lang.reflect.Type;
 
 /**
  * Fastjson Support
@@ -25,20 +24,16 @@ public class FastJsonSupport implements JsonSupport {
 
     @Override
     public String toString(Object object) {
-        return JSON.toJSONString(object, features);
+        if (null != features) {
+            return JSON.toJSONString(object, features);
+        } else {
+            return JSON.toJSONString(object);
+        }
     }
 
     @Override
-    public <T> T formJson(String value, Class<T> cls) {
-        return JSON.parseObject(value, cls);
-    }
-
-    public <T> List<T> parseArray(String value, Class<T> cls) {
-        return JSON.parseArray(value, cls);
-    }
-
-    public <T> T parseObject(String value, TypeReference<T> typeReference) {
-        return JSON.parseObject(value, typeReference);
+    public <T> T formJson(String json, Type cls) {
+        return JSON.parseObject(json, cls);
     }
 
 }

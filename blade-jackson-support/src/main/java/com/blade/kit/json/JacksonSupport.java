@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 
 /**
  * Jackson Support
@@ -28,10 +29,10 @@ public class JacksonSupport implements JsonSupport {
     }
 
     @Override
-    public <T> T formJson(String value, Class<T> cls) {
+    public <T> T formJson(String value, Type type) {
         T object = null;
         try {
-            object = OBJECT_MAPPER.readValue(value, cls);
+            object = (T) OBJECT_MAPPER.readValue(value, type.getClass());
         } catch (IOException e) {
             log.error("Jackson readValue fail", e);
         }

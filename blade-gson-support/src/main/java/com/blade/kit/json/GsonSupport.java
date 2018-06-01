@@ -2,6 +2,8 @@ package com.blade.kit.json;
 
 import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
+
 /**
  * Gson Support
  *
@@ -21,8 +23,8 @@ public class GsonSupport implements JsonSupport {
     }
 
     @Override
-    public <T> T formJson(String value, Class<T> cls) {
-        return gson.fromJson(value, cls);
+    public <T> T formJson(String value, Type type) {
+        return gson.fromJson(value, type);
     }
 
 }
